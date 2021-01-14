@@ -9,14 +9,14 @@ namespace besteng
 	{
 		friend struct Core;
 	private:
-		int windowWidth;
+		int windowWidth; //screen component that contains all the variables for a camera used in a perspective matrix
 		int windowHeight;
 		float fov;
 		float near;
 		float far;
 		std::weak_ptr<Core> core;
 	public:
-		int getWidth()
+		int getWidth() //getters for every variable
 		{
 			return windowWidth;
 		}

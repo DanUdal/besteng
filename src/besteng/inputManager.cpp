@@ -32,6 +32,7 @@ namespace besteng
 						it--;
 					}
 				}
+			case SDL_QUIT: quit = true;
 			}
 		}
 	}

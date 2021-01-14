@@ -4,20 +4,21 @@
 
 namespace besteng
 {
-	struct Environment
+	struct Environment //an environment to handle system parameters such as delta time
 	{
 		friend struct Core;
-		float deltaTime;
+		float deltaTime; //stores delta time
 		float lastTime;
+		float thisTime;
 	private:
-		std::weak_ptr<Core> core;
+		std::weak_ptr<Core> core; //core and self pointers
 		std::weak_ptr<Environment> self;
-		Environment& operator=(const Environment&);
+		Environment& operator=(const Environment&); //makes the environment uncopyable
 		void updateDeltaTime();
 		void frameCap();
-		Environment()
+		Environment() //private constructor
 		{
-			lastTime = SDL_GetTicks();
+			lastTime = SDL_GetTicks(); //sets the initial value for last time
 		}
 	};
 }

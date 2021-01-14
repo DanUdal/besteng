@@ -103,13 +103,10 @@ namespace besteng
 		{
 			Input->checkInput(); //adds any inputs to the input manager
 			
-			/*while (SDL_PollEvent(&events) != 0)
+			if (Input->quit)
 			{
-				if (events.type == SDL_QUIT) //ends the game if SDL_QUIT occurs
-				{
-					running = false;
-				}
-			}*/
+				running = false; //if SDL_QUIT happens end the game loop
+			}
 
 			for (size_t ei = 0; ei < entities.size(); ei++)
 			{
@@ -131,6 +128,19 @@ namespace besteng
 			environment->frameCap(); //updates deltaT and caps the frames to 60 fps
 		}
 	}
+
+	std::shared_ptr<Entity> Core::findEntity(std::string name)
+	{
+		for (auto it = entities.begin(); it < entities.end(); it++)
+		{
+			if ((*it)->name == name) //checks the name against every entity until the target is found
+			{
+				return (*it);
+			}
+		}
+		throw rend::Exception("Entity of that name not found");
+	}
+
 	Core & Core::operator=(const Core &)
 	{
 		

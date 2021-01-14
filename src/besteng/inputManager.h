@@ -15,6 +15,7 @@ namespace besteng
 		std::vector<int> mouseDown;
 		std::vector<int> mousePressed;
 		std::vector<int> mouseUp; //vectors tracking all the button presses
+		bool quit = false;
 		void clear();
 		void checkInput();
 	public:

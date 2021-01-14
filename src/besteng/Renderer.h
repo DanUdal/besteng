@@ -9,14 +9,13 @@ namespace besteng
 	struct Renderer : public Component
 	{
 	private:
-		std::shared_ptr<rend::Shader> shader;
-		std::shared_ptr<rend::Buffer> shape;
+		std::shared_ptr<rend::Shader> shader; //each renderer has a shader and context
 		std::shared_ptr<rend::Context> context;
-		std::weak_ptr<Renderer> self;
+		std::weak_ptr<Renderer> self; //self pointer
 	public:
 		Renderer();
 		~Renderer();
-		static std::shared_ptr<Renderer> initialise();
+		static std::shared_ptr<Renderer> initialise(); 
 		void onRender();
 		void onInitialise();
 	};

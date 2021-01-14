@@ -1,5 +1,4 @@
-#ifndef BESTENG_COMPONENT_H
-#define BESTENG_COMPONENT_H
+#pragma once
 #include <memory>
 #include <iostream>
 #include "entity.h"
@@ -21,6 +20,10 @@ namespace besteng
 		{
 			return getEntity()->getCore()->getCurrentScreen()->getComponent<Screen>(); //this function exists to remove the need for coding so many getters to improve UX
 		}
+		Component()
+		{
+			onInitialise();
+		}
 	protected:
 		void tick();
 		virtual void onInitialise();
@@ -32,4 +35,3 @@ namespace besteng
 	};
 
 }
-#endif

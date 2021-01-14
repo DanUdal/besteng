@@ -1,6 +1,6 @@
 #include "entity.h"
 
-namespace besteng
+namespace besteng //functions to call all the components
 {
 	void Entity::tick()
 	{

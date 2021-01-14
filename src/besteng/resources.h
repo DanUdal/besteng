@@ -3,11 +3,11 @@
 
 namespace besteng
 {
-	struct Cache
+	struct Cache //a class to store any files the user may want to use in their program
 	{
 	private:
 		std::weak_ptr<Core> core;
-		std::vector<std::shared_ptr<Resource>> resources;
+		std::vector<std::shared_ptr<Resource>> resources; //stores all the resources the user wants
 	public:
 		template <typename T>
 		std::shared_ptr<T> load(std::string path)

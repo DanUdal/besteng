@@ -1,0 +1,6 @@
+# ninja log v5
+1	2098	623945576	CMakeFiles/demo.dir/src/demo/main.cpp.obj	20ded52166aafee4
+2099	5302	623945579	demo.exe	1c7c8897c0fb4ec2
+37	2631	624203440	CMakeFiles/besteng.dir/src/besteng/component.cpp.obj	d34a28e09390339f
+51	2632	624203440	CMakeFiles/besteng.dir/src/besteng/entity.cpp.obj	f21741e2dd0b6591
+3	3635	624203441	CMakeFiles/demo.dir/src/demo/main.cpp.obj	7f274baa73263cb8

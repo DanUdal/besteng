@@ -1,66 +1,116 @@
 #include "inputManager.h"
 
-void besteng::InputManager::checkInput()
+
+namespace besteng
 {
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
+	void InputManager::checkInput() //checks all current events using sdl
 	{
-		switch (event.type)
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
 		{
-		case SDL_KEYDOWN: keyDown.push_back(event.key.keysym.sym);
-			keyPressed.push_back(event.key.keysym.sym);
-		case SDL_KEYUP: keyUp.push_back(event.key.keysym.sym);
-			for (auto it = std::begin(keyPressed); it != std::end(keyPressed); it++)
+			switch (event.type)
 			{
-				if (*it == event.key.keysym.sym)
+			case SDL_KEYDOWN: keyDown.push_back(event.key.keysym.sym);
+				keyPressed.push_back(event.key.keysym.sym); //keyboard key pressed down
+			case SDL_KEYUP: keyUp.push_back(event.key.keysym.sym); //keyboard key released
+				for (auto it = std::begin(keyPressed); it != std::end(keyPressed); it++)
 				{
-					keyPressed.erase(it);
-					it--;
+					if (*it == event.key.keysym.sym)
+					{
+						keyPressed.erase(it); //find the key released in the list of keys pressed and remove it
+						it--;
+					}
+				}
+			case SDL_MOUSEBUTTONDOWN: mouseDown.push_back(event.button.button);
+				mousePressed.push_back(event.button.button);
+			case SDL_MOUSEBUTTONUP: mouseUp.push_back(event.button.button);
+				for (auto it = std::begin(mousePressed); it != std::end(mousePressed); it++)
+				{
+					if (*it == event.button.button)
+					{
+						mousePressed.erase(it); //same as keyboard but for mouse
+						it--;
+					}
 				}
 			}
-		case SDL_MOUSEBUTTONDOWN: mouseDown.push_back(event.button.button);
-			mousePressed.push_back(event.button.button);
-		case SDL_MOUSEBUTTONUP: mouseUp.push_back(event.button.button);
-			for (auto it = std::begin(mousePressed); it != std::end(mousePressed); it++)
+		}
+	}
+
+	bool InputManager::getKeyboardInput(int key)
+	{
+		for (auto it = std::begin(keyPressed); it != std::end(keyPressed); it++)
+		{
+			if (*it == key)
 			{
-				if (*it == event.button.button)
-				{
-					mousePressed.erase(it);
-					it--;
-				}
+				return true; //searches for a key press with the specific keysym and returns true if it's found
 			}
 		}
+		return false;
 	}
-}
 
-bool besteng::InputManager::getKeyboardInput(int key)
-{
-	for (auto it = std::begin(keyPressed); it != std::end(keyPressed); it++)
+	bool InputManager::getMouseInput(int button)
 	{
-		if (*it == key)
+		for (auto it = std::begin(mousePressed); it != std::end(mousePressed); it++)
 		{
-			return true;
+			if (*it == button)
+			{
+				return true; //checks for mouse buttons pressed
+			}
 		}
+		return false;
 	}
-	return false;
-}
 
-bool besteng::InputManager::getMouseInput(int button)
-{
-	for (auto it = std::begin(mousePressed); it != std::end(mousePressed); it++)
+	void InputManager::clear()
 	{
-		if (*it == button)
-		{
-			return true;
-		}
+		keyDown.clear();
+		keyUp.clear();
+		mouseDown.clear();
+		mouseUp.clear();
 	}
-	return false;
-}
 
-void besteng::InputManager::clear()
-{
-	keyDown.clear();
-	keyUp.clear();
-	mouseDown.clear();
-	mouseUp.clear();
+	//functions to check the other input vectors for the user
+	bool InputManager::findKeyUp(int key)
+	{
+		for (auto it = std::begin(keyUp); it != std::end(keyUp); it++)
+		{
+			if (*it == key)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	bool InputManager::findKeyDown(int key)
+	{
+		for (auto it = std::begin(keyDown); it != std::end(keyDown); it++)
+		{
+			if (*it == key)
+			{
+				return true; 
+			}
+		}
+		return false;
+	}
+	bool InputManager::findMouseUp(int button)
+	{
+		for (auto it = std::begin(mouseUp); it != std::end(mouseUp); it++)
+		{
+			if (*it == button)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	bool InputManager::findMouseDown(int button)
+	{
+		for (auto it = std::begin(mouseDown); it != std::end(mouseDown); it++)
+		{
+			if (*it == button)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

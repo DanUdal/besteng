@@ -13,13 +13,13 @@ namespace besteng
 	{
 	}
 
-	std::shared_ptr<Renderer> Renderer::initialise()
+	std::shared_ptr<Renderer> Renderer::initialise() //initialises the shader for the renderer
 	{
 		std::shared_ptr<Renderer> rtn = std::make_shared<Renderer>();
 		rtn->context = rend::Context::initialize();
-		rtn->shader = rtn->context->createShader();
-		rtn->shape = rtn->context->createBuffer();
+		rtn->shader = rtn->context->createShader(); //intialising variables
 		rtn->self = rtn;
+		//glsl source code for shader
 		const char* src =
 			"\n#ifdef VERTEX\n                       " \
 			"attribute vec3 a_Position;              " \
@@ -37,7 +37,7 @@ namespace besteng
 			"\n#endif\n                              " \
 			"\n#ifdef FRAGMENT\n                     " \
 			"         " \
-			"uniform sampler2D u_texture;            " \
+			"uniform sampler2D u_Texture;            " \
 			"varying vec2 v_texcoord;                " \
 			"void main()                             " \
 			"{                                       " \
@@ -46,19 +46,16 @@ namespace besteng
 			"}                                       " \
 			"                                        " \
 			"\n#endif\n                              ";
-		rtn->shader->parse(src);
-		rtn->shape->add(rend::vec2(0, 0.5f));
-		rtn->shape->add(rend::vec2(-0.5f, -0.5f));
-		rtn->shape->add(rend::vec2(0.5f, -0.5f));
+		rtn->shader->parse(src); //sends program to the shader
 		return rtn;
 	}
 
 	void Renderer::onRender()
 	{
 		std::shared_ptr<Mesh> mesh = entity.lock()->getComponent<Mesh>();
-		if (mesh)
+		if (mesh) //if there is a mesh to render then render the object
 		{
-			shader->setUniform("u_model", getEntity()->getComponent<Transform>()->getModel());
+			shader->setUniform("u_model", getEntity()->getComponent<Transform>()->getModel()); //places the object in view space
 			shader->setUniform("u_projection", getCurrentScreen()->getPerspective());
 			shader->render();
 		}

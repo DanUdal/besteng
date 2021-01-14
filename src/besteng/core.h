@@ -17,14 +17,10 @@ namespace besteng
 	struct Core
 	{
 	private:
-		std::vector<std::shared_ptr<Entity>> entities; //vector of all entities in the scene
-		std::weak_ptr<Core> self; //self pointer
-		std::shared_ptr<Environment> environment; //the environment holds system variables such as delta time
 		Core(); //private constructor so the user must use initialise
 		SDL_Window* window; //window pointer for sdl
 		Core& operator=(const Core&); //this makes core uncopiable
 		std::shared_ptr<Entity> currentScreen; //holds the current main camera
-		std::shared_ptr<InputManager> Input; //the input manager contains all keyboard and button inputs
 		bool GJK(std::shared_ptr<Collider> ObjectA, std::shared_ptr<Collider> ObjectB); //this function calculates if the 2 objects collide
 		void collisionTest(); //tests for collision between all entities in the scene
 	public:
@@ -38,5 +34,10 @@ namespace besteng
 		{
 			return currentScreen;
 		}
+		std::shared_ptr<InputManager> Input; //the input manager contains all keyboard and button inputs
+		std::vector<std::shared_ptr<Entity>> entities; //vector of all entities in the scene
+		std::weak_ptr<Core> self; //self pointer
+		std::shared_ptr<Environment> environment; //the environment holds system variables such as delta time
+		std::shared_ptr<Entity> findEntity(std::string name); //finds entity of a given name
 	};
 }

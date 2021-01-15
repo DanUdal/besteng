@@ -9,10 +9,10 @@ namespace besteng
 	private:
 
 	public:
-		rend::vec3 position; //the transform component contains the position rotation and scale of all entities
-		rend::vec3 rotation; //all entities must have a transform component
-		rend::vec3 scale;
-		rend::mat4 getModel()
+		glm::vec3 position; //the transform component contains the position rotation and scale of all entities
+		glm::vec3 rotation; //all entities must have a transform component
+		glm::vec3 scale;
+		glm::mat4 getModel()
 		{
 			rend::mat4 rotationx = rend::rotate(rotationx, rotation.x, rend::vec3(1, 0, 0));
 			rend::mat4 rotationy = rend::rotate(rotationy, rotation.y, rend::vec3(0, 1, 0));

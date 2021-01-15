@@ -36,7 +36,7 @@ namespace besteng
 		{
 			return far;
 		}
-		rend::mat4 getPerspective()
+		glm::mat4 getPerspective()
 		{
 			return rend::perspective(fov, float(windowWidth / windowHeight), near, far);
 		}
